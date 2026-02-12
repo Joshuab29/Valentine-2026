@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ms. Maureen Joy (Bebe), Will You Be My Valentine? ❤️</title>
+
+  <!-- Fancy fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: radial-gradient(circle at top, #ffe6eb, #ff9a9e, #fad0c4);
+      overflow: hidden;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background-image: radial-gradient(white 1px, transparent 1px);
+      background-size: 40px 40px;
+      opacity: 0.15;
+      animation: shimmer 20s linear infinite;
+    }
+
+    @keyframes shimmer {
+      from { background-position: 0 0; }
+      to { background-position: 400px 400px; }
+    }
+
+    .card {
+      background: linear-gradient(180deg, #ffffff, #fff5f7);
+      padding: 3rem 3rem 3.5rem;
+      border-radius: 32px;
+      box-shadow: 0 30px 60px rgba(0,0,0,0.18);
+      text-align: center;
+      max-width: 440px;
+      width: 90%;
+      animation: floatIn 1s ease-out;
+    }
+
+    @keyframes floatIn {
+      from { transform: translateY(30px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    h1 {
+      margin-top: 0;
+      margin-bottom: 1rem;
+      font-family: 'Playfair Display', serif;
+      font-size: 2.4rem;
+      color: #c9184a;
+    }
+
+    p {
+      font-size: 1.1rem;
+      color: #555;
+      margin-bottom: 2.2rem;
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: center;
+      gap: 1.8rem;
+    }
+
+    button {
+      font-size: 1.1rem;
+      padding: 0.8rem 1.8rem;
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      font-weight: 600;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    #yesBtn {
+      background: linear-gradient(135deg, #ff4d6d, #c9184a);
+      color: white;
+      box-shadow: 0 12px 25px rgba(201,24,74,0.45);
+    }
+
+    #yesBtn:hover {
+      transform: translateY(-3px) scale(1.07);
+      box-shadow: 0 18px 35px rgba(201,24,74,0.55);
+    }
+
+    #noBtn {
+      background: #f3f3f3;
+      color: #444;
+      position: relative;
+    }
+
+    .hidden { display: none; }
+
+    .celebrate { animation: pop 0.7s ease forwards; }
+
+    @keyframes pop {
+      0% { transform: scale(0.7); opacity: 0; }
+      70% { transform: scale(1.1); }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    .heart {
+      position: absolute;
+      color: #ff4d6d;
+      animation: floatUp linear infinite;
+      pointer-events: none;
+    }
+
+    @keyframes floatUp {
+      0% { transform: translateY(0) scale(0.8); opacity: 0; }
+      10% { opacity: 1; }
+      100% { transform: translateY(-110vh) scale(1.6); opacity: 0; }
+    }
+
+    .signature {
+      margin-top: 2rem;
+      font-size: 0.95rem;
+      color: #888;
+      font-style: italic;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Ms. Maureen Joy (Bebe), will you be my Valentine? 💖</h1>
+    <p>From quiet moments to loud laughs — I’d love to spend Valentine’s Day with you 💕</p>
+
+    <div class="buttons">
+      <button id="yesBtn">Yes, of course 💘</button>
+      <button id="noBtn">No 🙈</button>
+    </div>
+
+    <div id="success" class="hidden">
+      <h1>You said yes 💞</h1>
+      <p>Happy Valentine’s Day, Ms. Maureen Joy (Bebe) 💖</p>
+      <p>You’ve officially made this the best day ever ✨</p>
+      <div class="signature">— with all my heart</div>
+    </div>
+  </div>
+
+  <script>
+    const yesBtn = document.getElementById('yesBtn');
+    const noBtn = document.getElementById('noBtn');
+    const success = document.getElementById('success');
+    const buttons = document.querySelector('.buttons');
+
+    yesBtn.addEventListener('click', () => {
+      buttons.classList.add('hidden');
+      success.classList.remove('hidden');
+      success.classList.add('celebrate');
+      spawnHearts();
+    });
+
+    let noHoverCount = 0;
+
+    noBtn.addEventListener('mouseover', () => {
+      noHoverCount++;
+
+      if (noHoverCount < 4) {
+        const x = Math.random() * 220 - 110;
+        const y = Math.random() * 220 - 110;
+        noBtn.style.transform = `translate(${x}px, ${y}px)`;
+      } else {
+        noBtn.textContent = 'Okay yes 😏';
+        noBtn.style.background = 'linear-gradient(135deg, #ff4d6d, #c9184a)';
+        noBtn.style.color = 'white';
+        noBtn.style.boxShadow = '0 12px 25px rgba(201,24,74,0.45)';
+        noBtn.style.transform = 'scale(1.05)';
+
+        noBtn.addEventListener('click', () => yesBtn.click(), { once: true });
+      }
+    });
+
+    function spawnHearts() {
+      for (let i = 0; i < 40; i++) {
+        const heart = document.createElement('div');
+        heart.className = 'heart';
+        heart.textContent = Math.random() > 0.5 ? '❤️' : '💖';
+        heart.style.left = Math.random() * 100 + 'vw';
+        heart.style.fontSize = 1 + Math.random() * 2 + 'rem';
+        heart.style.animationDuration = 3 + Math.random() * 3 + 's';
+        document.body.appendChild(heart);
+        setTimeout(() => heart.remove(), 6000);
+      }
+    }
+  </script>
+</body>
+</html>
